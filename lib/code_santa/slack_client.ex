@@ -53,9 +53,9 @@ defmodule CodeSanta.SlackClient do
 
   @spec format_paragraph(Puzzle.paragraph()) :: slack_paragraph()
   defp format_paragraph({:code_block, text_nodes}) do
-    formatted_text = format_text(text_nodes)
+    text = to_raw_text(text_nodes)
 
-    make_block("```#{formatted_text}```")
+    make_block("```#{text}```")
   end
 
   defp format_paragraph({:list, text_nodes}) do
@@ -87,6 +87,7 @@ defmodule CodeSanta.SlackClient do
   defp format_text({:code_snippet, children}) do
     formatted_node = wrap_text_node(children, "`")
 
+    # Bold code snippets should have the stars on the inside to ensure proper formatting
     if String.starts_with?(formatted_node, "`*") and String.ends_with?(formatted_node, "*`") do
       formatted_node
       |> String.replace_prefix("`*", "*`")
@@ -128,4 +129,16 @@ defmodule CodeSanta.SlackClient do
 
   @spec make_link(String.t(), String.t()) :: String.t()
   defp make_link(text, link), do: "<#{link}|#{text}>"
+
+  @spec to_raw_text(Puzzle.text_node()) :: String.t()
+  defp to_raw_text(nodes) when is_list(nodes) do
+    nodes
+    |> Enum.map(&to_raw_text/1)
+    |> List.flatten()
+    |> Enum.join()
+  end
+
+  defp to_raw_text(text) when is_binary(text), do: text
+  defp to_raw_text({_, children}), do: to_raw_text(children)
+  defp to_raw_text({_, _, children}), do: to_raw_text(children)
 end
