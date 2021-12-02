@@ -11,7 +11,7 @@ defmodule CodeSanta.SlackClient do
 
   @spec post_puzzle(Puzzle.t()) :: :ok
   def post_puzzle(%Puzzle{} = puzzle) do
-    channel_id = "#" <> CodeSantaConfig.channel()
+    channel_id = "#" <> Application.get_env(:code_santa, :channel)
 
     blocks =
       puzzle
@@ -28,7 +28,7 @@ defmodule CodeSanta.SlackClient do
         }),
         headers: [
           {"Content-Type", "application/json; charset=utf-8"},
-          {"Authorization", "Bearer #{CodeSantaConfig.slack_api_token()}"}
+          {"Authorization", "Bearer #{Application.get_env(:code_santa, :slack_api_token)}"}
         ]
       )
 
