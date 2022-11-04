@@ -2,7 +2,7 @@ defmodule CodeSanta.Repo.Migrations.AddObanJobsTable do
   use Ecto.Migration
 
   def up do
-    Oban.Migrations.up()
+    Oban.Migrations.up(version: 10)
   end
 
   def down do

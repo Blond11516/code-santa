@@ -21,11 +21,11 @@ defmodule CodeSanta.SlackClient do
     %{body: %{"ok" => true}} =
       Req.post!(
         "https://slack.com/api/chat.postMessage",
-        Jason.encode!(%{
+        json: %{
           "channel" => channel_id,
           "text" => @announcement_block,
           "blocks" => blocks
-        }),
+        },
         headers: [
           {"Content-Type", "application/json; charset=utf-8"},
           {"Authorization", "Bearer #{Application.get_env(:code_santa, :slack_api_token)}"}
