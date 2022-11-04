@@ -1,6 +1,31 @@
 import Config
 import CodeSanta.ConfigHelpers, only: [get_env: 3, get_env: 2, get_env: 1]
 
+# Static config
+
+config :code_santa, ecto_repos: [CodeSanta.Repo]
+
+config :code_santa, Oban,
+  repo: CodeSanta.Repo,
+  plugins: [
+    {Oban.Plugins.Cron,
+     crontab: [
+       {"0 0 23 11 *", CodeSanta.AdventScheduler}
+     ],
+     timezone: "EST"}
+  ],
+  queues: [puzzles: 1]
+
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
+# Prod config
+
+if Config.config_env() == :prod do
+  config :tzdata, :data_dir, "/etc/elixir_tzdata_data"
+end
+
+# Dynamic config
+
 env_file_name = ".env.#{Config.config_env()}"
 
 if File.exists?(env_file_name) do
