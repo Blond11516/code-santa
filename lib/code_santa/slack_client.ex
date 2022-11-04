@@ -27,8 +27,8 @@ defmodule CodeSanta.SlackClient do
           "blocks" => blocks
         },
         headers: [
-          {"Content-Type", "application/json; charset=utf-8"},
-          {"Authorization", "Bearer #{Application.get_env(:code_santa, :slack_api_token)}"}
+          {"content-type", "application/json; charset=utf-8"},
+          {"authorization", "Bearer #{Application.get_env(:code_santa, :slack_api_token)}"}
         ]
       )
 
