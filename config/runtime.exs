@@ -18,12 +18,6 @@ config :code_santa, Oban,
 
 config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
-# Prod config
-
-if Config.config_env() == :prod do
-  config :tzdata, :data_dir, "/etc/elixir_tzdata_data"
-end
-
 # Dynamic config
 
 env_file_name = ".env.#{Config.config_env()}"
