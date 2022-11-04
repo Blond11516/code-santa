@@ -7,7 +7,7 @@ config :code_santa, Oban,
   plugins: [
     {Oban.Plugins.Cron,
      crontab: [
-       {"0 0 30 11 *", CodeSanta.AdventScheduler}
+       {"0 0 23 11 *", CodeSanta.AdventScheduler}
      ],
      timezone: "EST"}
   ],
