@@ -11,8 +11,7 @@ defmodule CodeSanta.Puzzle.Fetcher do
     |> handle_response(year, day)
   end
 
-  # credo:disable-for-next-line Credo.Check.Warning.SpecWithStruct
-  @spec handle_response(%Req.Response{}, integer(), integer()) :: Puzzle.t()
+  @spec handle_response(Req.Response.t(), integer(), integer()) :: Puzzle.t()
   defp handle_response(%Req.Response{status: 200} = response, year, day) do
     document = Floki.parse_document!(response.body)
 
