@@ -1,4 +1,4 @@
-defmodule CodeSanta.SlackClient do
+defmodule CodeSanta.Slack.Formatter do
   alias CodeSanta.AdventOfCode
   alias CodeSanta.Puzzle
 
@@ -9,34 +9,11 @@ defmodule CodeSanta.SlackClient do
           String.t() => %{String.t() => String.t(), String.t() => String.t()}
         }
 
-  @spec post_puzzle(Puzzle.t()) :: :ok
-  def post_puzzle(%Puzzle{} = puzzle) do
-    channel_id = "#" <> Application.get_env(:code_santa, :channel)
+  @spec announcement_block() :: String.t()
+  def announcement_block, do: @announcement_block
 
-    blocks =
-      puzzle
-      |> format_puzzle()
-      |> Jason.encode!()
-
-    %{body: %{"ok" => true}} =
-      Req.post!(
-        "https://slack.com/api/chat.postMessage",
-        json: %{
-          "channel" => channel_id,
-          "text" => @announcement_block,
-          "blocks" => blocks
-        },
-        headers: [
-          {"content-type", "application/json; charset=utf-8"},
-          {"authorization", "Bearer #{Application.get_env(:code_santa, :slack_api_token)}"}
-        ]
-      )
-
-    :ok
-  end
-
-  @spec format_puzzle(Puzzle.t()) :: [slack_paragraph()]
-  defp format_puzzle(%Puzzle{} = puzzle) do
+  @spec format(Puzzle.t()) :: [slack_paragraph()]
+  def format(%Puzzle{} = puzzle) do
     puzzle_url = AdventOfCode.puzzle_url(puzzle.year, puzzle.day)
 
     title_block =
@@ -77,6 +54,13 @@ defmodule CodeSanta.SlackClient do
   defp format_text({:emphasis, children}), do: wrap_text_node(children, "*")
   defp format_text({:tooltip, _, children}), do: format_text(children)
   defp format_text({:list_item, children}), do: format_text(children)
+
+  defp format_text({:list, children}) do
+    children
+    |> Enum.map(&format_text/1)
+    |> Enum.map_join("\n", fn text -> "    • " <> text end)
+    |> String.replace(~r/^  /, "")
+  end
 
   defp format_text({:link, link, children}) do
     formatted_children = format_text(children)

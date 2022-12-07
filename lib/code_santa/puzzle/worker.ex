@@ -2,7 +2,7 @@ defmodule CodeSanta.Puzzle.Worker do
   use Oban.Worker, queue: :puzzles, unique: [period: :infinity]
 
   alias CodeSanta.Puzzle.Fetcher
-  alias CodeSanta.SlackClient
+  alias CodeSanta.Slack.Client, as: SlackClient
 
   @impl Oban.Worker
   def perform(%Oban.Job{args: %{"year" => year, "day" => day}}) do

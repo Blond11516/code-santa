@@ -16,6 +16,7 @@ defmodule CodeSanta.Puzzle do
           | {:link, String.t(), text_node_value()}
           | {:tooltip, String.t(), text_node_value()}
           | {:list_item, text_node_value()}
+          | {:list, text_node_value()}
 
   @type t :: %__MODULE__{
           title: String.t(),

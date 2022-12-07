@@ -9,8 +9,8 @@ defmodule CodeSanta do
     :ok = Oban.Telemetry.attach_default_logger()
 
     children = [
-      CodeSanta.Repo,
-      {Oban, oban_config()}
+      # CodeSanta.Repo,
+      # {Oban, oban_config()}
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: CodeSanta.Supervisor)
