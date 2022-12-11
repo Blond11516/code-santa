@@ -9,7 +9,6 @@ defmodule CodeSanta.Slack.Client do
     blocks =
       puzzle
       |> Formatter.format()
-      |> IO.inspect(label: "before encode")
       |> Jason.encode!()
 
     %{body: %{"ok" => true}} =

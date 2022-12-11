@@ -16,19 +16,20 @@ defmodule CodeSanta.Slack.Formatter do
   def format(%Puzzle{} = puzzle) do
     puzzle_url = AdventOfCode.puzzle_url(puzzle.year, puzzle.day)
 
-    title_block =
+    [title_block] =
       puzzle.title
       |> make_link(puzzle_url)
       |> wrap_text_node("*")
       |> make_block()
 
-    announcement_block = make_block(@announcement_block, type: :header)
-    description_blocks = Enum.map(puzzle.description, &format_paragraph/1)
+    [announcement_block] = make_block(@announcement_block, type: :header)
+
+    description_blocks = Enum.flat_map(puzzle.description, &format_paragraph/1)
 
     [announcement_block, title_block | description_blocks]
   end
 
-  @spec format_paragraph(Puzzle.paragraph()) :: slack_paragraph()
+  @spec format_paragraph(Puzzle.paragraph()) :: [slack_paragraph()]
   defp format_paragraph({:code_block, text_nodes}) do
     text = to_raw_text(text_nodes)
 
@@ -93,10 +94,10 @@ defmodule CodeSanta.Slack.Formatter do
     "#{prefix}#{format_text(node)}#{suffix}"
   end
 
-  @spec make_block(String.t(), keyword()) :: slack_paragraph()
+  @spec make_block(String.t(), keyword()) :: [slack_paragraph()]
   defp make_block(text, opts \\ []) when is_binary(text) do
     case opts[:type] do
-      :header -> make_header_block(text)
+      :header -> [make_header_block(text)]
       _ -> make_section_block(text)
     end
   end
@@ -106,9 +107,32 @@ defmodule CodeSanta.Slack.Formatter do
     %{"type" => "header", "text" => %{"type" => "plain_text", "text" => text}}
   end
 
-  @spec make_section_block(String.t()) :: slack_paragraph()
+  @spec make_section_block(String.t()) :: [slack_paragraph()]
   defp make_section_block(text) do
-    %{"type" => "section", "text" => %{"type" => "mrkdwn", "text" => text}}
+    if String.length(text) > 3000 do
+      {first, second} =
+        case String.split_at(text, 2000) do
+          {"```" <> first, second} -> {"```#{first}```", "```#{second}"}
+          splits -> splits
+        end
+
+      [
+        %{
+          "type" => "context",
+          "elements" => [
+            %{
+              "type" => "plain_text",
+              "text" =>
+                "Le bloc suivant a été coupé en 2 parce qu'il dépasse la limite de 3000 caractères imposée par Slack."
+            }
+          ]
+        },
+        %{"type" => "section", "text" => %{"type" => "mrkdwn", "text" => first}},
+        %{"type" => "section", "text" => %{"type" => "mrkdwn", "text" => second}}
+      ]
+    else
+      [%{"type" => "section", "text" => %{"type" => "mrkdwn", "text" => text}}]
+    end
   end
 
   @spec make_link(String.t(), String.t()) :: String.t()
