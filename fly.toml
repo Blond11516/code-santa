@@ -1,16 +1,15 @@
-# fly.toml file generated for code-santa on 2021-11-28T10:33:44-05:00
+# fly.toml app configuration file generated for code-santa on 2023-05-24T17:09:17-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
 app = "code-santa"
-
+primary_region = "yul"
 kill_signal = "SIGINT"
-kill_timeout = 5
-processes = []
+kill_timeout = "5s"
+
+[experimental]
+  auto_rollback = true
 
 [deploy]
   release_command = "/app/entry eval CodeSanta.Release.migrate"
-
-[env]
-
-[experimental]
-  allowed_public_ports = []
-  auto_rollback = true
