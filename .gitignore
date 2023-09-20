@@ -32,5 +32,4 @@ code_santa-*.tar
 # Editor/IDS configs
 .vscode/
 
-# Other
-.elixir_ls/
+sqlite/*

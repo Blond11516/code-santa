@@ -26,8 +26,10 @@ defmodule CodeSanta.MixProject do
       {:req, "0.4.3"},
       {:floki, "0.34.3"},
       {:jason, "1.4.1"},
-      {:oban, "2.13.4"},
+      {:oban, "2.15.4"},
       {:tzdata, "1.1.1"},
+      {:ecto, "3.10.3"},
+      {:ecto_sqlite3, "0.11.0"},
       {:dotenv_parser, "2.0.0", runtime: false},
       {:credo, "1.7.0", only: :dev, runtime: false},
       {:dialyxir, "1.4.1", only: :dev, runtime: false}
