@@ -29,7 +29,7 @@ code_santa-*.tar
 .env.*
 !.env.*.example
 
-# Editor/IDS configs
+# Editor/IDE configs
 .vscode/
 
 sqlite/*

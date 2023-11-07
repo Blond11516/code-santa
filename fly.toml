@@ -7,9 +7,12 @@ app = "code-santa"
 primary_region = "yul"
 kill_signal = "SIGINT"
 kill_timeout = "5s"
+swap_size_mb = 512
 
-[experimental]
-  auto_rollback = true
+[env]
+DATABASE_PATH = "/mnt/code_santa_volume/code_santa.sqlite"
+CODE_SANTA_CHANNEL = "advent-of-code"
 
-[deploy]
-  release_command = "/app/entry eval CodeSanta.Release.migrate"
+[mounts]
+source = "code_santa_volume"
+destination = "/mnt/code_santa_volume"
