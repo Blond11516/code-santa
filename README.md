@@ -31,10 +31,6 @@ All the necessary environment variables are documented in the [.env.dev.example]
 
 For more information on how to get the OAuth token, and creating Slack apps in general, follow [this official guide](https://api.slack.com/authentication/basics).
 
-### Other dependincies
-
-Oban relies on a PostgreSQL database to manage background jobs. You will need to provision one in order to use this application.
-
 ### Fly.io
 
 This app comes with a [fly.io configuration file](fly.toml), making ready to deploy on fly. It also fits very comfortably in fly's free tier. Here are the steps you need to follow:
@@ -57,12 +53,6 @@ To view the errors, you can either access the database directly or fetch the job
 ### Dependencies
 
 The specific language runtimes required by the application are listed in the [.tool-versions](.tool-versions) file. If you use [asdf](https://asdf-vm.com/) you can install them with `asdf install`. Otherwise, any recent of Erlang and Elixir should do the trick.
-
-You will also need a PostgreSQL database for development. If you use docker, you can start one with
-
-```
-docker run -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres:13
-```
 
 If you used the following command, you shouldn't have to change the default database url provided in [.env.dev.example](.env.dev.example).
 
