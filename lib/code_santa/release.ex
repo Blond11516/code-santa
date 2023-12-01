@@ -1,6 +1,11 @@
 defmodule CodeSanta.Release do
   @app :code_santa
 
+  def post_challenge(year, day) do
+    CodeSanta.Puzzle.Fetcher.fetch_challenge!(year, day)
+    |> CodeSanta.Slack.Client.post_puzzle()
+  end
+
   def migrate do
     load_app()
 
