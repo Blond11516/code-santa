@@ -26,7 +26,7 @@ defmodule CodeSanta.MixProject do
       {:req, "0.5.7"},
       {:floki, "0.36.3"},
       {:jason, "1.4.4"},
-      {:oban, "2.16.3"},
+      {:oban, "2.18.3"},
       {:tzdata, "1.1.2"},
       {:ecto, "3.12.4"},
       {:ecto_sqlite3, "0.17.4"},
