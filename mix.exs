@@ -31,7 +31,7 @@ defmodule CodeSanta.MixProject do
       {:ecto, "3.10.3"},
       {:ecto_sqlite3, "0.12.0"},
       {:dotenv_parser, "2.0.0", runtime: false},
-      {:credo, "1.7.1", only: :dev, runtime: false},
+      {:credo, "1.7.10", only: :dev, runtime: false},
       {:dialyxir, "1.4.2", only: :dev, runtime: false}
     ]
   end
