@@ -17,7 +17,8 @@ defmodule CodeSanta do
       {Oban, oban_config()}
     ]
 
-    {:ok, pid} = Supervisor.start_link(children, strategy: :one_for_one, name: CodeSanta.Supervisor)
+    {:ok, pid} =
+      Supervisor.start_link(children, strategy: :one_for_one, name: CodeSanta.Supervisor)
 
     Logger.info("Started application")
 

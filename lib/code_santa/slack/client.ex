@@ -13,11 +13,11 @@ defmodule CodeSanta.Slack.Client do
       |> Formatter.format()
       |> Jason.encode!()
 
-      Logger.info("Successfully formatted puzzle #{puzzle_id}")
+    Logger.info("Successfully formatted puzzle #{puzzle_id}")
 
-      channel_id = "#" <> Application.get_env(:code_santa, :channel)
+    channel_id = "#" <> Application.get_env(:code_santa, :channel)
 
-      Logger.info("Will attempt to post puzzle #{puzzle_id} to Slack channel #{channel_id}")
+    Logger.info("Will attempt to post puzzle #{puzzle_id} to Slack channel #{channel_id}")
 
     %{body: %{"ok" => true}} =
       Req.post!(
