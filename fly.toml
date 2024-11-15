@@ -1,18 +1,23 @@
-# fly.toml app configuration file generated for code-santa on 2023-05-24T17:09:17-04:00
+# fly.toml app configuration file generated for code-santa on 2024-11-15T16:27:24-05:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "code-santa"
-primary_region = "yul"
-kill_signal = "SIGINT"
-kill_timeout = "5s"
+app = 'code-santa'
+primary_region = 'yul'
+kill_signal = 'SIGINT'
+kill_timeout = '5s'
 swap_size_mb = 512
 
-[env]
-DATABASE_PATH = "/mnt/code_santa_volume/code_santa.sqlite"
-CODE_SANTA_CHANNEL = "advent-of-code"
+[build]
 
-[mounts]
-source = "code_santa_volume"
-destination = "/mnt/code_santa_volume"
+[env]
+  CODE_SANTA_CHANNEL = 'advent-of-code'
+  DATABASE_PATH = '/mnt/code_santa_volume/code_santa.sqlite'
+
+[[mounts]]
+  source = 'code_santa_volume'
+  destination = '/mnt/code_santa_volume'
+
+[[vm]]
+  size = 'shared-cpu-1x'
