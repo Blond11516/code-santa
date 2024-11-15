@@ -1,15 +1,23 @@
 defmodule CodeSanta.AdventScheduler do
   use Oban.Worker, queue: :puzzles
 
+  require Logger
+
   @impl Oban.Worker
   def perform(%Oban.Job{}) do
+    Logger.info("Scheduling all puzzle jobs")
+
     1..25
     |> Enum.each(&enqueue_puzzle_job/1)
+
+    Logger.info("All puzzle jobs scheduled successfully")
 
     :ok
   end
 
   defp enqueue_puzzle_job(day) do
+    Logger.info("Scheduling job for day #{day}")
+
     %{year: year} = Date.utc_today()
 
     start_on_date = Date.new!(year, 12, day)
