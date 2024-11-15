@@ -23,16 +23,16 @@ defmodule CodeSanta.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:req, "0.4.5"},
-      {:floki, "0.35.2"},
-      {:jason, "1.4.1"},
+      {:req, "0.5.7"},
+      {:floki, "0.36.3"},
+      {:jason, "1.4.4"},
       {:oban, "2.16.3"},
-      {:tzdata, "1.1.1"},
-      {:ecto, "3.10.3"},
-      {:ecto_sqlite3, "0.12.0"},
-      {:dotenv_parser, "2.0.0", runtime: false},
+      {:tzdata, "1.1.2"},
+      {:ecto, "3.12.4"},
+      {:ecto_sqlite3, "0.17.4"},
+      {:dotenv_parser, "2.0.1", runtime: false},
       {:credo, "1.7.10", only: :dev, runtime: false},
-      {:dialyxir, "1.4.2", only: :dev, runtime: false}
+      {:dialyxir, "1.4.4", only: :dev, runtime: false}
     ]
   end
 
