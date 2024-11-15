@@ -19,12 +19,6 @@ config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
 # Dynamic config
 
-env_file_name = ".env.#{Config.config_env()}"
-
-if File.exists?(env_file_name) do
-  DotenvParser.load_file(env_file_name)
-end
-
 config :code_santa,
   channel: get_env("CODE_SANTA_CHANNEL"),
   slack_api_token: get_env("CODE_SANTA_SLACK_API_KEY")

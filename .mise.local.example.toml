@@ -1,0 +1,6 @@
+[env]
+CODE_SANTA_SLACK_API_KEY = "your_api_key"
+# Channel in which the puzzles should be posted
+CODE_SANTA_CHANNEL = "advent-of-code"
+# Path of the SQLite database
+DATABASE_PATH = "sqlite/dev.sqlite"

@@ -27,7 +27,7 @@ Code Santa tries to replicate as much of the original text formatting as possibl
 
 ### Environment variables
 
-All the necessary environment variables are documented in the [.env.dev.example](.env.dev.example) environment file.
+All the necessary environment variables are documented in the [.mise.local.example.toml](.mise.local.example.toml) environment file. You will need [mise](https://mise.jdx.dev/) in order to use it.
 
 For more information on how to get the OAuth token, and creating Slack apps in general, follow [this official guide](https://api.slack.com/authentication/basics).
 
