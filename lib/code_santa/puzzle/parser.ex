@@ -4,7 +4,14 @@ defmodule CodeSanta.Puzzle.Parser do
 
   @spec parse([Floki.html_node()]) :: [Puzzle.paragraph()]
   def parse(html_puzzle) do
-    Enum.map(html_puzzle, &parse_paragraph/1)
+    html_puzzle
+    |> Enum.filter(fn
+      {"p", [], ["\n"]} -> false
+      "\n" -> false
+      {_, _, _} -> true
+    end)
+    |> Enum.map(&parse_paragraph/1)
+    |> dbg()
   end
 
   @spec parse_paragraph(Floki.html_node()) :: Puzzle.paragraph()
