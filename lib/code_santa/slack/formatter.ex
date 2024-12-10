@@ -54,6 +54,7 @@ defmodule CodeSanta.Slack.Formatter do
   defp format_text({:star, children}), do: wrap_text_node(children, "⭐ _")
   defp format_text({:emphasis, children}), do: wrap_text_node(children, "*")
   defp format_text({:tooltip, _, children}), do: format_text(children)
+  defp format_text({:quiet, children}), do: format_text(children)
   defp format_text({:list_item, children}), do: format_text(children)
 
   defp format_text({:list, children}) do

@@ -15,6 +15,7 @@ defmodule CodeSanta.Puzzle do
           | {:code_snippet, text_node_value()}
           | {:link, String.t(), text_node_value()}
           | {:tooltip, String.t(), text_node_value()}
+          | {:quiet, text_node_value()}
           | {:list_item, text_node_value()}
           | {:list, text_node_value()}
 

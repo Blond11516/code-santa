@@ -33,9 +33,13 @@ defmodule CodeSanta.Puzzle.Parser do
   defp parse_text_node(text) when is_binary(text), do: text
 
   defp parse_text_node({"span", _, children} = node) do
-    [title] = Floki.attribute(node, "title")
+    title_attributes = Floki.attribute(node, "title")
+    class_attributes = Floki.attribute(node, "class")
 
-    {:tooltip, title, parse_text_node_list(children)}
+    cond do
+      match?([_title], title_attributes) -> {:tooltip, hd(title_attributes), parse_text_node_list(children)}
+      match?(["quiet"], class_attributes) -> {:quiet, parse_text_node_list(children)}
+    end
   end
 
   defp parse_text_node({"a", _, [text]} = node) do
