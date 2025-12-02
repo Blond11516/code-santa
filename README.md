@@ -52,7 +52,7 @@ To view the errors, you can either access the database directly or fetch the job
 
 ### Dependencies
 
-The specific language runtimes required by the application are listed in the [.tool-versions](.tool-versions) file. If you use [asdf](https://asdf-vm.com/) you can install them with `asdf install`. Otherwise, any recent of Erlang and Elixir should do the trick.
+The specific language runtimes required by the application are listed in the [mise.toml](mise.toml) file. If you use [mise](https://mise.jdx.dev) you can install them with `mise install`. Otherwise, any recent of Erlang and Elixir should do the trick.
 
 If you used the following command, you shouldn't have to change the default database url provided in [.env.dev.example](.env.dev.example).
 
