@@ -7,7 +7,7 @@ defmodule CodeSanta.AdventScheduler do
   def perform(%Oban.Job{}) do
     Logger.info("Scheduling all puzzle jobs")
 
-    1..25
+    1..12
     |> Enum.each(&enqueue_puzzle_job/1)
 
     Logger.info("All puzzle jobs scheduled successfully")
